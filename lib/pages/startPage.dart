@@ -4,9 +4,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
+import 'package:musevibes/pages/homePage.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rive/rive.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 
-class StartPage extends StatelessWidget {
+class StartPage extends StatefulWidget {
   const StartPage({super.key});
+
+  @override
+  State<StartPage> createState() => _StartPageState();
+}
+
+class _StartPageState extends State<StartPage> {
+  var isFinished = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,106 +25,125 @@ class StartPage extends StatelessWidget {
     double containerWidth = halfScreenWidth - 50;
     return Scaffold(
       backgroundColor: Color(0xff161616),
-      body: ListView(
-        padding: EdgeInsets.all(30),
-        scrollDirection: Axis.vertical,
+      body: Stack(
+
         children: [
-          Container(
-            child: Column(
-              children: [
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //Faire le fond de la page
+          Positioned(
+              width: MediaQuery.of(context).size.width * 1.7,
+              bottom: 200,
+              left: 100,
+              child: Image.asset("assets/images/Spline.png")
+          ),
+          Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 20,sigmaY: 10),
+              )
+          ),
+          RiveAnimation.asset("assets/rive/shapes.riv"),
+          Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 35,sigmaY: 30),
+                child: SizedBox(),
+              )
+          ),
+
+
+          //Les élément devant
+          SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
                   children: [
+                    //Image radio
                     Container(
-                      color: Colors.red,
-                      child: Container(height: 30,width: containerWidth,)
+                        child:Column(
+                          children: [
+                              SizedBox(height: 250,),
+                              Image.asset(
+                                  "assets/images/radio.png",
+                                  width: MediaQuery.of(context).size.width * (4/5),
+                              )
+                            ],
+                        )
                     ),
-                    Container(
-                      color: Colors.greenAccent,
-                        child: Container(height: 40,width: containerWidth,)
 
-                    )
+                    //Text listen your favorite music
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Listen to your",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 20
+                            ),
+                          ),
+                          Text(
+                            "Favorite Music",
+                            style: TextStyle(
+                                fontFamily: "Poppins",
+                                color: Colors.white,
+                                fontSize: 55,
+                                fontWeight: FontWeight.w500,
+                                height: 1.2
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+                    ),
+
+                    Spacer(),
+
+                    //Swipe
+                    Container(
+                        child: SwipeableButtonView(
+                          buttonText: 'Start Playing',
+                          buttontextstyle: TextStyle(fontSize: 15, color: Colors.orange),
+                          buttonWidget: Container(
+                            child: Text(
+                              'Play',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700
+                              ),
+                            ),
+                          ),
+                          buttonColor: Color(0xfffbd013),
+                          activeColor: Color(0xff282828),
+
+                          isFinished: isFinished,
+                          onWaitingProcess: () {
+                            Future.delayed(Duration(seconds: 2), () {
+                              setState(() {
+                                isFinished = true;
+                              });
+                            });
+                          },
+                          onFinish: () async {
+                            await Navigator.push(context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                child: HomePage(),
+                              ),
+                            );
+
+                            setState(() {
+                              isFinished = false;
+                            });
+                          },
+                        ),
+
+
+                    ),
                   ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 80),
-                  height: 300,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xff161616), Colors.yellow],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            Positioned(
-                                top: 0,
-                                child: Container(
-                                  width: 300,
-                                  child: Lottie.asset(
-                                    "assets/annimation/music.json",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                            ),
-                            Container(
-                                child: Image.asset(
-                                  "assets/images/radio.png",
-                                ),
-                            ),
-
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            )
+              )
           ),
 
-          SizedBox(height: 55,),
-
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Listen to your",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 25
-                  ),
-                ),
-                Text(
-                  "Favorite Music",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.w500
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-
-          SizedBox(height: 25,),
-
-          Container(
-            child: Text(
-              "Image",
-              style: TextStyle(
-                  color: Colors.white
-              ),
-            ),
-          ),
         ],
       ),
     );
