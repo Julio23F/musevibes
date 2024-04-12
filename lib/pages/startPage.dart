@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-// import 'package:lottie/lottie.dart';
 import 'package:musevibes/pages/homePage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rive/rive.dart';
@@ -84,7 +83,7 @@ class _StartPageState extends State<StartPage> {
                           Text(
                             "Listen to your",
                             style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.white.withOpacity(0.5),
                                 fontSize: 20
                             ),
                           ),
@@ -95,7 +94,8 @@ class _StartPageState extends State<StartPage> {
                                 color: Colors.white,
                                 fontSize: 55,
                                 fontWeight: FontWeight.w500,
-                                height: 1.2
+                                height: 1.2,
+                                letterSpacing: 4
                             ),
                           ),
 
