@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 import 'package:musevibes/pages/homePage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rive/rive.dart';
@@ -60,11 +60,18 @@ class _StartPageState extends State<StartPage> {
                     Container(
                         child:Column(
                           children: [
-                              SizedBox(height: 250,),
+                              SizedBox(
+                                height: 80
+                              ),
+                              SizedBox(
+                                height: 150,
+                                width: 250,
+                                child: RiveAnimation.asset("assets/rive/icon.riv"),
+                              ),
                               Image.asset(
                                   "assets/images/radio.png",
                                   width: MediaQuery.of(context).size.width * (4/5),
-                              )
+                              ),
                             ],
                         )
                     ),
@@ -99,7 +106,7 @@ class _StartPageState extends State<StartPage> {
 
                     Spacer(),
 
-                    //Swipe
+                    // Swipe
                     Container(
                         child: SwipeableButtonView(
                           buttonText: 'Start Playing',
