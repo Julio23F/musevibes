@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musevibes/widgets/music.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -148,10 +149,7 @@ class _HomePageState extends State<HomePage> {
                     flex: 1,
                       child: TabBarView(
                         children: [
-                          Container(
-                            color: Colors.red,
-                            child: Text("Un"),
-                          ),
+                          MusicList(),
                           Container(
                             color: Colors.red,
                             child: Text("Deux"),
