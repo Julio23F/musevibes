@@ -150,26 +150,11 @@ class _HomePageState extends State<HomePage> {
                       child: TabBarView(
                         children: [
                           MusicList(),
-                          Container(
-                            color: Colors.red,
-                            child: Text("Deux"),
-                          ),
-                          Container(
-                            color: Colors.red,
-                            child: Text("Trois"),
-                          ),
-                          Container(
-                            color: Colors.red,
-                            child: Text("Quatre"),
-                          ),
-                          Container(
-                            color: Colors.red,
-                            child: Text("Cinq"),
-                          ),
-                          Container(
-                            color: Colors.red,
-                            child: Text("data"),
-                          ),
+                          MusicList(),
+                          MusicList(),
+                          MusicList(),
+                          MusicList(),
+                          MusicList(),
                         ],
                       )
                   )

@@ -60,17 +60,28 @@ class _StartPageState extends State<StartPage> {
                         child:Column(
                           children: [
                               SizedBox(
-                                height: 80
+                                height: 50
                               ),
                               SizedBox(
                                 height: 150,
                                 width: 250,
-                                child: RiveAnimation.asset("assets/rive/icon.riv"),
+                                child: RiveAnimation.asset("assets/rive/music.riv"),
                               ),
-                              Image.asset(
-                                  "assets/images/radio.png",
-                                  width: MediaQuery.of(context).size.width * (4/5),
+                              SizedBox(
+                                height: 150,
+                                width: MediaQuery.of(context).size.width * (5/6),
+                                child: RiveAnimation.asset(
+                                  "assets/rive/musique.riv",
+                                ),
                               ),
+                              SizedBox(
+                                  height: 55
+                              ),
+
+                              // Image.asset(
+                              //     "assets/images/radio.png",
+                              //     width: MediaQuery.of(context).size.width * (4/5),
+                              // ),
                             ],
                         )
                     ),
