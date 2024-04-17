@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musevibes/widgets/music.dart';
+import 'package:musevibes/pages/musicPlayer.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
