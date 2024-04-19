@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:musevibes/pages/startPage.dart';
 
 void main() {
-  runApp(const MyApp());
+    runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

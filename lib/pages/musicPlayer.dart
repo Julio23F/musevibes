@@ -44,10 +44,58 @@ class _MusicPlayerState extends State<MusicPlayer> {
               ),
             ),
           ),
+          
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 25.0, left: 25, right: 25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          shape: BoxShape.circle
+                      ),
+                      child: Icon(
+                        Icons.chevron_left_rounded,
+                        size: 27,
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                  Text(
+                      "Now Playing",
+                      style: TextStyle(
+                        fontSize: 23,
+                        color: Colors.white.withOpacity(0.8),
+                        fontWeight: FontWeight.w500
+                      ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      shape: BoxShape.circle
+                    ),
+                    child: Icon(
+                      Icons.queue_music_rounded,
+                      size: 27,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
 
           //Représentation
           Positioned(
-            top: MediaQuery.of(context).size.width * (2/8),
+            top: MediaQuery.of(context).size.width * (4/14),
             right: 0,
             left: 0,
             child: Center(
@@ -57,8 +105,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     height: MediaQuery.of(context).size.width * (3/4),
                     width: MediaQuery.of(context).size.width * (3/4),
                     decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(150),
+                        shape: BoxShape.circle,
                         border: Border.all(width: 5, color: Color(0xfff7ad61)),
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -70,10 +117,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
                         ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.orange.withOpacity(0.2), // Couleur de l'ombre orange
+                          color: Colors.orange.withOpacity(0.2),
                           spreadRadius: 4,
                           blurRadius: 15,
-                          offset: Offset(0, 15), // Décalage de l'ombre
+                          offset: Offset(0, 15),
                         ),
                       ],
                     ),
@@ -96,23 +143,59 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           ),
                         ),
 
+                        SizedBox(height: 25,),
+                        //Chrono
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  "0:00",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white.withOpacity(0.8)
+                                  ),
+                              ),
+                              Text(
+                                "3:13",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white.withOpacity(0.8)
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         //Barre de progression
-
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            thumbShape: const RoundSliderThumbShape(
+                              enabledThumbRadius: 7
+                            )
+                          ),
+                          child: Slider(
+                              min: 0,
+                              max: 100,
+                              value: 50,
+                              onChanged: (value) {}
+                          ),
+                        ),
 
                         //Bouton de controle
-                        SizedBox(height: 55,),
+                        SizedBox(height: 35,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Icon(Icons.skip_previous, size: 45, color: Colors.white.withOpacity(0.8)),
                             Container(
-                                padding: EdgeInsets.all(7),
-                                decoration: BoxDecoration(g
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
                                     color: Colors.orange,
-                                    borderRadius: BorderRadius.circular(150)
+                                    shape: BoxShape.circle,
                                 ),
                                 child: Icon(
-                                    Icons.play_arrow, 
+                                    Icons.play_arrow,
                                     size: 45,
                                     color: Colors.white.withOpacity(0.8)
                                 )
