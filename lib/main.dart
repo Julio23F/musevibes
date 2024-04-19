@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:musevibes/models/playlist_provider.dart';
 import 'package:musevibes/pages/startPage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-    runApp(const MyApp());
+    runApp(
+        ChangeNotifierProvider(
+          create: (context) => PlaylistProvider(),
+          child: MyApp()
+        ),
+    );
 }
 
 class MyApp extends StatelessWidget {
