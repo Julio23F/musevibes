@@ -13,6 +13,14 @@ class MusicPlayer extends StatefulWidget {
 
 
 class _MusicPlayerState extends State<MusicPlayer> {
+
+  String formatTime (Duration duration) {
+    String formatSeconde = duration.inSeconds.remainder(60).toString();
+    String formatTime = "${duration.inMinutes}:${formatSeconde}";
+
+    return formatTime;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -162,14 +170,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "0:00",
+                                      formatTime(value.currentDuration),
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.white.withOpacity(0.8)
                                       ),
                                     ),
                                     Text(
-                                      "3:13",
+                                      formatTime(value.totalDuration),
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.white.withOpacity(0.8)
@@ -187,9 +195,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 ),
                                 child: Slider(
                                     min: 0,
-                                    max: 100,
-                                    value: 50,
-                                    onChanged: (value) {}
+                                    max: value.totalDuration.inSeconds.toDouble(),
+                                    value: value.currentDuration.inSeconds.toDouble(),
+                                    onChanged: (double double) {
+
+                                    },
+                                    onChangeEnd: (double double) {
+                                      value.seek(Duration(seconds: double.toInt()));
+                                    },
                                 ),
                               ),
 
@@ -198,20 +211,32 @@ class _MusicPlayerState extends State<MusicPlayer> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Icon(Icons.skip_previous, size: 45, color: Colors.white.withOpacity(0.8)),
-                                  Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.orange,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                          Icons.play_arrow,
-                                          size: 45,
-                                          color: Colors.white.withOpacity(0.8)
-                                      )
+                                  GestureDetector(
+                                      onTap: value.playPreviousSong,
+                                      child: Icon(Icons.skip_previous, size: 45, color: Colors.white.withOpacity(0.8))
                                   ),
-                                  Icon(Icons.skip_next, size: 45, color: Colors.white.withOpacity(0.8)),
+                                  GestureDetector(
+                                    onTap: value.pauseOrResume,
+                                    child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                            value.isPlaying ? Icons.pause : Icons.play_arrow,
+                                            size: 45,
+                                            color: Colors.white.withOpacity(0.8)
+                                        )
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      value.playNextSong();
+                                      print("Next");
+                                    },
+                                      child: Icon(Icons.skip_next, size: 45, color: Colors.white.withOpacity(0.8))
+                                  ),
                                 ],
                               )
 
