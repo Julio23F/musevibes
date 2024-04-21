@@ -52,7 +52,7 @@ class _StartPageState extends State<StartPage> {
           //Les élément devant
           SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30),
                 child: Column(
                   children: [
                     //Image radio
@@ -135,7 +135,7 @@ class _StartPageState extends State<StartPage> {
 
                           isFinished: isFinished,
                           onWaitingProcess: () {
-                            Future.delayed(Duration(seconds: 2), () {
+                            Future.delayed(Duration(seconds: 1), () {
                               setState(() {
                                 isFinished = true;
                               });

@@ -30,7 +30,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           final playlist = value.playlist;
 
           final currentSong = playlist[value.currentSongIndex ?? 0];
-
+          print(value.currentSongIndex);
           return Scaffold(
             body: Stack(
               children: [

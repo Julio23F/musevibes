@@ -154,15 +154,21 @@ class PlaylistProvider extends ChangeNotifier {
   Duration get totalDuration => _totalDuration;
 
 
+
   //Setters
   set currentSongIndex(int? newIndex) {
     //mettre a jour l'index du song
     _currentSongIndex = newIndex;
-    if (newIndex != null) {
-      play();
-    }
+    // if (newIndex != null) {
+    //   play();
+    // }
 
     //Update UI
+    notifyListeners();
+  }
+  void updatePlaylist(List<Song> newSongs) {
+    _playlist.clear();
+    _playlist.addAll(newSongs);
     notifyListeners();
   }
 

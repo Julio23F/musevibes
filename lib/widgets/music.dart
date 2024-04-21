@@ -52,7 +52,7 @@ class _MusicListState extends State<MusicList> {
                   return InkWell(
                     onTap: () {
                       goToSong(index);
-                      print(index);
+                      print("index: ${index}");
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
