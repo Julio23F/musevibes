@@ -51,7 +51,7 @@ class PlaylistProvider extends ChangeNotifier {
   void play () async{
     final String path = _playlist[_currentSongIndex!].audioPath;
     await _audioPlayer.stop();
-    await _audioPlayer.play(AssetSource(path));
+    await _audioPlayer.play(DeviceFileSource(path));
 
     _isPlaying = true;
     notifyListeners();
@@ -68,7 +68,6 @@ class PlaylistProvider extends ChangeNotifier {
   //remettre
   void resume () async {
     final String path = _playlist[_currentSongIndex!].audioPath;
-    await _audioPlayer.setSource(AssetSource(path));
     await _audioPlayer.resume();
 
     _isPlaying = true;
@@ -159,9 +158,9 @@ class PlaylistProvider extends ChangeNotifier {
   set currentSongIndex(int? newIndex) {
     //mettre a jour l'index du song
     _currentSongIndex = newIndex;
-    // if (newIndex != null) {
-    //   play();
-    // }
+    if (newIndex != null) {
+      play();
+    }
 
     //Update UI
     notifyListeners();

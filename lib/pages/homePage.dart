@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:musevibes/widgets/music.dart';
-import 'package:musevibes/pages/musicPlayer.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -37,10 +36,9 @@ class _HomePageState extends State<HomePage> {
       List<String> files = result.paths.map((path) => path!).toList();
 
       _selectedFiles = createSongsFromFiles(files);
-      setState(() {
-        _selectedFiles = _selectedFiles;
-      });
 
+
+      //Mettre à jour la liste des playlist
       Provider.of<PlaylistProvider>(context, listen: false)
           .updatePlaylist(_selectedFiles);
 
@@ -65,14 +63,7 @@ class _HomePageState extends State<HomePage> {
 
     return songs;
   }
-  void goToSong (int songIndex) {
-    playlistProvider.currentSongIndex = songIndex;
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MusicPlayer())
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +97,6 @@ class _HomePageState extends State<HomePage> {
                           InkWell(
                             onTap: () {
                               // pickDirectory();
-                              print("voici le chemin: ${_selectedFiles}");
                             },
                             child: Icon(
                               Icons.sort_rounded,
@@ -132,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text(
-                      "Hello Julio ${_selectedFiles}",
+                      "Hello Julio ",
                       style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 28,
@@ -141,77 +131,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: _selectedFiles.length,
-                        itemBuilder: (context, index) {
-                          final Song song = _selectedFiles[index];
-                          return InkWell(
-                            onTap: () {
-                              print("index: ${index}");
-                              goToSong(index);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                              decoration: BoxDecoration(
-                                  color: Color(0xff30314d),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
 
-                              child: Row(
-                                children: [
-                                  Text(
-                                    (index+1).toString(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w700
-                                    ),
-                                  ),
-                                  SizedBox(width: 25,),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${song.artistName} - ${song.songName}",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w500
-                                          ),
-                                        ),
-                                        Text(
-                                          "Bass - 04:30",
-                                          style: TextStyle(
-                                              color: Colors.white.withOpacity(0.8)
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Icon(
-                                      Icons.play_arrow,
-                                      size: 25,
-                                      color: Color(0xff31314f),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text(

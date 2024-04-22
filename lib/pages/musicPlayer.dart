@@ -21,6 +21,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
     return formatTime;
   }
 
+  String formatText (String text) {
+    String newFormat = "";
+    if (text.length > 14) {
+      newFormat = '';
+    }
+    return newFormat;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -30,7 +38,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
           final playlist = value.playlist;
 
           final currentSong = playlist[value.currentSongIndex ?? 0];
-          print(value.currentSongIndex);
           return Scaffold(
             body: Stack(
               children: [
@@ -233,7 +240,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                   GestureDetector(
                                     onTap: () {
                                       value.playNextSong();
-                                      print("Next");
                                     },
                                       child: Icon(Icons.skip_next, size: 45, color: Colors.white.withOpacity(0.8))
                                   ),
