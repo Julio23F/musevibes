@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:musevibes/widgets/music.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:musevibes/widgets/online.dart';
+import 'package:musevibes/widgets/playlist.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/playlist_provider.dart';
 import '../models/song.dart';
@@ -25,6 +28,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     playlistProvider = Provider.of<PlaylistProvider>(context,listen: false);
+
+        // Initialisation des SharedPreferences au chargement du widget
+    initSharedPreferences();
+
   }
 
   late List<Song> _selectedFiles = [];
@@ -41,6 +48,8 @@ class _HomePageState extends State<HomePage> {
       //Mettre à jour la liste des playlist
       Provider.of<PlaylistProvider>(context, listen: false)
           .updatePlaylist(_selectedFiles);
+
+      saveData(_selectedFiles);
 
     }
   }
@@ -62,6 +71,23 @@ class _HomePageState extends State<HomePage> {
     }
 
     return songs;
+  }
+
+  List myData = [];
+
+  // Initialisation des SharedPreferences
+  Future<void> initSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Récupération de la donnée depuis SharedPreferences
+    setState(() {
+      myData = prefs.getStringList('items') ?? [];
+    });
+  }
+
+  // Sauvegarde de la donnée dans SharedPreferences
+  Future<void> saveData(newData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('items', newData);
   }
 
 
@@ -122,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text(
-                      "Hello Julio ",
+                      "Hello Julio ${myData}",
                       style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 28,
@@ -199,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                       tabs: [
                         Tab(child: Text('Musics'),),
                         Tab(child: Text('Playlists'),),
-                        Tab(child: Text('Favourites'),),
+                        Tab(child: Text('Online'),),
                         Tab(child: Text('Trending'),),
                         Tab(child: Text('Collections'),),
                         Tab(child: Text('New'),),
@@ -211,8 +237,8 @@ class _HomePageState extends State<HomePage> {
                       child: TabBarView(
                         children: [
                           MusicList(),
-                          MusicList(),
-                          MusicList(),
+                          PlayList(),
+                          Online(),
                           MusicList(),
                           MusicList(),
                           MusicList(),
